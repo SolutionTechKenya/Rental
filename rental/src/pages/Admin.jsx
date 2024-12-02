@@ -33,7 +33,7 @@ const Admin = () => {
             <a href="#">View List</a>
           </div>
           <div className="card">
-            <h2>Total Tenants</h2>
+            <h2>Total Tenants in the ployy</h2>
             <p>1</p>
             <a href="#">View List</a>
           </div>
