@@ -1,0 +1,64 @@
+
+  .main-content {
+    margin-left: 220px;
+    padding: 20px;
+  }
+  
+  .dashboard-header {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .event-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .event-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .event-date {
+    font-weight: bold;
+  }
+  
+  .add-event-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .action-button {
+    background-color: #3a3b85;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .action-button:hover {
+    background-color: #2c2d6e;
+  }
