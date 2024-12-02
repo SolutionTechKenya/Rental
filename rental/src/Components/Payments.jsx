@@ -119,11 +119,9 @@ function PaymentSystem() {
 
   return (
     <div className="payment-system">
-      <div className="sidebar">
-        <div className="logo">
-          <h1>Payment Portal</h1>
-        </div>
-        <nav>
+      <div>
+          <h2 className='h2'>Payment Portal</h2>
+        <nav className='nav'>
           <button 
             onClick={() => {
               setActiveTab('make-payment');
