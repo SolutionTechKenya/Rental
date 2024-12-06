@@ -49,7 +49,6 @@ const TenantDashboard = () => {
       {/* Sidebar */}
       <div className="sidebar">
         <div className="logo">NYUMBANI</div>
-        <nav>
           {menuItems.map((item) => (
             <button 
               key={item.id}
@@ -64,7 +63,6 @@ const TenantDashboard = () => {
             <LogOut size={20} />
             <span>Log out</span>
           </button>
-        </nav>
       </div>
 
       {/* Main Content Area */}

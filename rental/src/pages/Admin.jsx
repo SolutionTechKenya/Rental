@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Routes, Route } from "react-router-dom";
-import { Home, CreditCard, Bell, Users, LogOut, FileText, Calendar } from 'lucide-react';
+import { Home, CreditCard, Bell, Users, LogOut, LogIn, FileText, Calendar } from 'lucide-react';
 import "../css/TenantDashboard.css";
 
 // Importing individual pages
@@ -10,6 +10,7 @@ import Tenants from "../Components/admin/Tenants";
 import Reports from "../Components/admin/Reports";
 import CalendarComponent from "../Components/admin/Calendar";
 import Notifications from '../Components/admin/Notifications';
+import LoginPage from './Login';
 
 const Admin = () => {
   const [activePage, setActivePage] = useState('dashboard');
@@ -49,6 +50,12 @@ const Admin = () => {
       label: 'Calendar',
       icon: <Calendar size={20} />,
       component: CalendarComponent
+    },
+    {
+      id: 'login',
+      label: 'Login',
+      icon: <LogIn size={20} />,
+      component: LoginPage
     }
   ]
   const ActivePageComponent = menuItems.find(item => item.id === activePage)?.component || Dashboard;
