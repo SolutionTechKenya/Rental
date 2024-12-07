@@ -14,14 +14,14 @@ const LoginPage = () => {
     console.log("Username:", username);
     console.log("Password:", password);
     const res = await api.post("/api/token/", {
-    // const res = await api.post("/api/token/", {
+    // const res = await api.post("/tenant-login", {
       username: username,
       password: password,
     });
     console.log(res);
     localStorage.setItem(ACCESS_TOKEN, res.data.access);
     localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-    navigate("/");
+    res.data.isAdmin ? navigate("/admin") : navigate("/tenant");
   };
 
   return (

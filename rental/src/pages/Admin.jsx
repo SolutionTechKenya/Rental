@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { Home, CreditCard, Bell, Users, LogOut, LogIn, FileText, Calendar } from 'lucide-react';
 import "../css/TenantDashboard.css";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 // Importing individual pages
 import Dashboard from "../Components/admin/Dashboard";
@@ -58,8 +60,13 @@ const Admin = () => {
       component: LoginPage
     }
   ]
+  const navigate = useNavigate();
   const ActivePageComponent = menuItems.find(item => item.id === activePage)?.component || Dashboard;
-
+  const handleLogOut = () => {
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+    navigate('/login');
+  }
   return (
     <div className="tenant-dashboard">
       {/* Sidebar */}
@@ -78,7 +85,7 @@ const Admin = () => {
           ))}
           <button className="sidebar-item logout">
             <LogOut size={20} />
-            <span>Log out</span>
+            <span onClick={handleLogOut}>Log out</span>
           </button>
         </nav>
       </div>

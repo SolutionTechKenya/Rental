@@ -23,15 +23,22 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/admin"
           element={
             <ProtectedRoute>
-              <Home/>
-          {/* <Route path="/admin" element={<Admin/>} />
-          <Route path="/tenant" element={<TenantDashboard/>} /> */}
+              <Admin/>
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/tenant"
+          element={
+            <ProtectedRoute>
+              <TenantDashboard/>
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
