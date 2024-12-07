@@ -3,10 +3,13 @@ import '../css/LoginPage.css';
 import {useNavigate} from "react-router-dom";
 import api from "../Api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
+import { Check } from "lucide-react";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [is_admin, setWho] = useState(true);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,15 +34,37 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           {/* Username Field */}
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+          <div className="chkbox">
+            <label htmlFor="who">Login as admin: </label>
+              <input type="checkbox" className="check" checked={is_admin} onChange={(e) => setWho(e.target.checked)} />  
+          </div>
+            { !is_admin && (
+              <>
+                <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+              />
+              </>
+            )}
+          </div>
+          { is_admin && (
+            <div className="input-group">
+            <h3>Enter email to recieve the 2FA code</h3>
+            <label htmlFor="username">Email: </label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
             />
           </div>
+          )
+          }
 
           {/* Password Field */}
           <div className="input-group">
@@ -54,7 +79,7 @@ const LoginPage = () => {
           </div>
 
           {/* Submit Button */}
-          <button type="submit">Login</button>
+          <button type="submit">{is_admin ? "Next" : "Login"}</button>
         </form>
 
         {/* Additional Links */}

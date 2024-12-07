@@ -12,10 +12,7 @@ export const AuthProvider=({children})=>{
     const [user, setUser] = useState(null);
     const [isAuthorized,setAuthorized]=useState(false)
     const navigate = useNavigate();
-    const [foodCategoriesClient,setFoodCategoriesClient]=useState([])
-    const [foodItemsClient, setFoodItemsClient] = useState([
-   
-    ]);
+
 
     // const login = (refresh,access) => {
     //     localStorage.setItem('access',access)
@@ -24,13 +21,13 @@ export const AuthProvider=({children})=>{
     //     navigate('/Admin'); 
     // };
     
-    const logout = () => {
-        localStorage.removeItem(ACCESS_TOKEN)
-        localStorage.removeItem(REFRESH_TOKEN)
-        setUser(null); 
-        setAuthorized(false)
-        navigate('/AdminLogin'); 
-    };
+    // const logout = () => {
+    //     localStorage.removeItem(ACCESS_TOKEN)
+    //     localStorage.removeItem(REFRESH_TOKEN)
+    //     setUser(null); 
+    //     setAuthorized(false)
+    //     navigate('/login'); 
+    // };
 
     return (
         <AuthContext.Provider value={{ user,foodItemsClient,setFoodItemsClient,foodCategoriesClient,setFoodCategoriesClient,setUser, login,isAuthorized, logout }}>
