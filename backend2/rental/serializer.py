@@ -1,4 +1,4 @@
-from .models import User
+from .models import User, Tenant, Room
 from rest_framework import serializers
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -55,6 +55,26 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer  
     
-    
-    
-          
+class TenantSerializer(serializers.ModelSerializer):
+    room_name = serializers.SerializerMethodField(method_name="get_name")
+
+    class Meta:
+        model = Tenant
+        fields = ['password', 'username', 'is_tenant', 'phone', 'room', 'room_name']
+        # fields = '__all__'
+
+    def get_name(self, obj):
+        # Accessing `room` directly on the instance and then its `room_no` field.
+        return obj.room.room_no if obj.room else None
+
+    # def validate_phone(self, value):
+    #     # Ensure the phone is a valid string of 10 digits
+    #     if not value.isdigit() or len(value) != 10:
+    #         raise serializers.ValidationError("Phone number must be a string of exactly 10 digits.")
+    #     return value            
+
+    # def validate_room(self, value):
+    #     """Ensure the room exists."""
+    #     if not Room.objects.filter(pk=value.id if isinstance(value, Room) else value).exists():
+    #         raise serializers.ValidationError(f"Room with id '{value}' does not exist.")
+    #     return value
