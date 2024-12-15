@@ -3,8 +3,7 @@ import "../../css/admin/Reports.css";
 
 const Reports = () => {
   return (
-    <div>
-      <div className="main-content">
+    <>
         <div className="dashboard-header">Reports Overview</div>
 
         <div className="reports-section">
@@ -33,9 +32,8 @@ const Reports = () => {
           <p>Check scheduled events or reminders for financial activities.</p>
           <button className="action-button">View Events</button>
         </div>
-      </div>
       
-    </div>
+    </>
   );
 };
 

@@ -28,9 +28,7 @@ const App = () => {
                 <a href="#">Contact Us</a>
               </li>
               <li className="dropdown">
-                <a href="javascript:void(0)" className="dropbtn" onClick={toggleDropdown}>
-                  Login
-                </a>
+                <Link to='/login'>Login</Link>
                 {isDropdownVisible && (
                   <div className="dropdown-content">
                     <a href="#">Tenant</a>

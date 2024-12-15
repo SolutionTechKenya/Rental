@@ -268,21 +268,6 @@
       flex-direction: column;
     }
   
-    .sidebar {
-      width: 100%;
-      border-bottom: 1px solid #ddd;
-    }
-  
-    .sidebar nav {
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  
-    .sidebar button {
-      flex-grow: 1;
-      text-align: center;
-    }
-  
     .payment-methods {
       grid-template-columns: 1fr 1fr;
     }

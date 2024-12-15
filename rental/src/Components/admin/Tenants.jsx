@@ -5,14 +5,18 @@ import "../../css/admin/Tenants.css";
 const TenantsManagement = () => {
   // State to manage which view is active
   const [view, setView] = useState("viewAll");
-
+  const [tenants, setTenants] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [buildings, setBuildings] = useState([]);
+  
   // State to manage tenant form inputs
   const [tenantForm, setTenantForm] = useState({
     username: "",
     password: "",
     room: "",
     phone: "",
-    is_tenant: 1
+    is_tenant: 1,
+    vacancy: 0
   });
 
   // State for room assignment form
@@ -20,18 +24,36 @@ const TenantsManagement = () => {
     tenantName: "",
     roomNumber: "",
   });
+  
+  const [filteredRooms, setFilteredRooms] = useState([]);
+  
+  useEffect(() => {
+    if (tenantForm.building) {
+      const filtered = rooms.filter(room => 
+        room.building === parseInt(tenantForm.building) && room.vacancy === true
+      );
+      setFilteredRooms(filtered);
+    } else {
+      setFilteredRooms([]);
+    }
+  }, [tenantForm.building, rooms]);
 
-  // Mock data for tenants
-  const [tenants, setTenants] = useState([
-    { id: 1, username: "John Doe", room: "Room 101", phone: "+1234567890" },
-    { id: 2, username: "Jane Smith", room: "Room 102", phone: "+9876543210" },
-  ]);
+  // Use another useEffect to log the updated state
+  useEffect(() => {
+    console.log('filtered rooms', filteredRooms); // Logs when filteredRooms changes
+  }, [filteredRooms]);
+  
+  
 
   const fetchTenants = async () => {
     try {
       const res = await api.get('/api/add/tenant/'); // Replace with the correct API base URL
-      console.log(res.data.tenants)
+      console.log("Buildings", res.data.buildings)
+      console.log("Rooms", res.data.rooms)
+      console.log("Tenants", res.data.tenants)
       setTenants(res.data.tenants);
+      setRooms(res.data.rooms);
+      setBuildings(res.data.buildings);
     }
     catch (error) {
       console.log("Error fetching tenants data..")
@@ -51,8 +73,8 @@ const TenantsManagement = () => {
       // id: tenants.length + 1,
       ...tenantForm,
     };
-    console.log(newTenant)
     const res = await api.post('/api/add/tenant/', newTenant)
+    console.log('Response', res.message)
     setTenants((prev) => [...prev, newTenant]);
     setTenantForm({ username: "", room: "", phone: "" }); // Reset form
     setView("viewAll"); // Go back to tenant list
@@ -60,13 +82,15 @@ const TenantsManagement = () => {
 
   // Handle room assignment form change
   const handleAssignmentFormChange = (e) => {
-    const { username, value } = e.target;
-    setAssignmentForm((prev) => ({ ...prev, [username]: value }));
+    const { name, value } = e.target;
+    setAssignmentForm((prev) => ({ ...prev, [name]: value }));
   };
 
   // Handle room assignment submission (placeholder logic)
-  const handleAssignRoom = (e) => {
+  const handleAssignRoom = async (e) => {
     e.preventDefault();
+    const res = await api.patch('/api/add/tenant/', assignmentForm)
+    console.log("REsponse", res.message)
     alert(`Assigning ${assignmentForm.tenantName} to ${assignmentForm.roomNumber}`);
     setAssignmentForm({ tenantName: "", roomNumber: "" }); // Reset form
   };
@@ -75,19 +99,20 @@ const TenantsManagement = () => {
     fetchTenants();
   }, [])
 
-  const rooms = [
-    { id: "101", roomNo: "101", buildingId: "1" },
-    { id: "102", roomNo: "102", buildingId: "1" },
-    { id: "201", roomNo: "201", buildingId: "2" },
-  ];
-  const buildings = [
-    { id: "1", name: "Building A" },
-    { id: "2", name: "Building B" },
-  ];
-  const filteredRooms = rooms.filter((room) => room.buildingId === tenantForm.building);
+  const handleDeleteTenant = (id) => async () => {
+    try {
+      console.log("Deleting tenant with id", id)
+      await api.delete(`/api/add/tenant/?id=${id}`)
+      setTenants((prev) => prev.filter(tenant => tenant.id !== id))
+    } catch (error) {
+      console.log("Error deleting tenant", error)
+    }
+  }
+
+  
+
   return (
-    <div>
-      <div className="main-content">
+    <>
         {/* Header */}
         <div className="dashboard-header">Manage Tenants</div>
 
@@ -108,92 +133,84 @@ const TenantsManagement = () => {
         {view === "add" && (
           <div>
             <h2>Add New Tenant</h2>
-            {/* 
-            {
-    "password": "Albert",
-    "userusername": "Albert", 
-"phone": "0779337634",
- "room": "QN-001",
- "is_tenant": 1
- } */}
- <form onSubmit={handleAddTenant}>
-      <div>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={tenantForm.username}
-            onChange={handleTenantFormChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={tenantForm.password}
-            onChange={handleTenantFormChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Building:
-          <select
-            name="building"
-            value={tenantForm.building}
-            onChange={handleTenantFormChange}
-            required
-          >
-            <option value="">Select a building</option>
-            {buildings.map((building) => (
-              <option key={building.id} value={building.id}>
-                {building.name}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Room:
-          <select
-            name="room"
-            value={tenantForm.room}
-            onChange={handleTenantFormChange}
-            required
-            disabled={!tenantForm.building} // Disable until a building is selected
-          >
-            <option value="">Select a room</option>
-            {filteredRooms.map((room) => (
-              <option key={room.id} value={room.id}>
-                {room.roomNo}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Contact:
-          <input
-            type="text"
-            name="phone"
-            value={tenantForm.phone}
-            onChange={handleTenantFormChange}
-            required
-          />
-        </label>
-      </div>
-      <button type="submit" className="action-button">
-        Add Tenant
-      </button>
-    </form>
+            <form onSubmit={handleAddTenant}>
+                  <div>
+                    <label>
+                      Username:
+                      <input
+                        type="text"
+                        name="username"
+                        value={tenantForm.username}
+                        onChange={handleTenantFormChange}
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      Password:
+                      <input
+                        type="password"
+                        name="password"
+                        value={tenantForm.password}
+                        onChange={handleTenantFormChange}
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      Building:
+                      <select
+                        name="building"
+                        value={tenantForm.building}
+                        onChange={handleTenantFormChange}
+                        required
+                      >
+                        <option value="">Select a building</option>
+                        {buildings.map((building) => (
+                          <option key={building.id} value={building.id}>
+                            {building.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      Room:
+                      <select
+                        name="room"
+                        value={tenantForm.room}
+                        onChange={handleTenantFormChange}
+                        required
+                        // disabled={!tenantForm.building} // Disable until a building is selected
+                      >
+                        <option value="">Select a room</option>
+                        {filteredRooms.map((room) => (
+                          <option key={room.id} value={room.id}>
+                            {room.room_no}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      Contact:
+                      <input
+                        type="text"
+                        name="phone"
+                        value={tenantForm.phone}
+                        onChange={handleTenantFormChange}
+                        required
+                      />
+                    </label>
+                  </div>
+                  <button type="submit" className="action-button">
+                    Add Tenant
+                  </button>
+                </form>
           </div>
         )}
 
@@ -216,12 +233,10 @@ const TenantsManagement = () => {
                     <td>{tenant.room_name}</td>
                     <td>{tenant.phone}</td>
                     <td>
-                      <button className="action-button">Edit</button>
+                      {/* <button className="action-button">Edit</button> */}
                       <button
                         className="action-button"
-                        onClick={() =>
-                          setTenants((prev) => prev.filter((t) => t.id !== tenant.id))
-                        }
+                        onClick={handleDeleteTenant(tenant.id)}
                       >
                         Remove
                       </button>
@@ -267,8 +282,7 @@ const TenantsManagement = () => {
             </form>
           </div>
         )}
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -3,8 +3,7 @@ import "../../css/admin/Dashboard.css";
 
 const FinancialManagement = () => {
   return (
-    <div>
-      <div className="main-content">
+    <>
         <div className="dashboard-header">Financial Overview</div>
 
         <div className="dashboard-cards">
@@ -33,9 +32,8 @@ const FinancialManagement = () => {
             <li>Other Financial Reports</li>
           </ul>
         </div>
-      </div>
       
-    </div>
+    </>
   );
 };
 

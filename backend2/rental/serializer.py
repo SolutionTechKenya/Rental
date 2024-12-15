@@ -1,4 +1,4 @@
-from .models import User, Tenant, Room
+from .models import User, Tenant, Room, Building
 from rest_framework import serializers
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -19,7 +19,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
         # Add custom claims
         #adding aditional information to the token
-        # token['username'] = user.username
+        #token['username'] = user.username
         # token['email'] = user.email
         
         return token
@@ -55,12 +55,21 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer  
     
+class BuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Building
+        fields='__all__'
+        
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Room
+        fields='__all__'    
 class TenantSerializer(serializers.ModelSerializer):
     room_name = serializers.SerializerMethodField(method_name="get_name")
 
     class Meta:
         model = Tenant
-        fields = ['password', 'username', 'is_tenant', 'phone', 'room', 'room_name']
+        fields = ['password', 'username', 'is_tenant', 'phone','id', 'room', 'room_name']
         # fields = '__all__'
 
     def get_name(self, obj):

@@ -66,9 +66,9 @@ const TenantDashboard = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="main-content">
+      <>
         <ActivePageComponent />
-      </div>
+      </>
     </div>
   );
 };

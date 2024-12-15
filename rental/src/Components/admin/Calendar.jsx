@@ -10,8 +10,7 @@ const Calendar = () => {
   ]);
 
   return (
-    <div>
-      <div className="main-content">
+    <>
         <div className="dashboard-header">Calendar Overview</div>
 
         <div className="calendar-container">
@@ -49,10 +48,8 @@ const Calendar = () => {
               Add Event
             </button>
           </form>
-        </div>
-      </div>
-      
-    </div>
+        </div>      
+    </>
   );
 };
 

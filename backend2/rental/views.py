@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view,authentication_classes
 from rest_framework.decorators import permission_classes,api_view
 from rest_framework.authentication import TokenAuthentication
 from .models import User, Tenant, Building, Room
-from .serializer import UserSerializer, TenantSerializer
+from .serializer import UserSerializer, TenantSerializer, BuildingSerializer, RoomSerializer
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -73,19 +73,23 @@ class AddTenant(generics.CreateAPIView):
             print('Alpha',tenant.id)
         
         # Serialize the tenants (note: no data= parameter)
-        serializer = self.get_serializer(tenants, many=True)
+        buildingSerializer = BuildingSerializer(buildings, many=True)
+        roomSerializer = RoomSerializer(rooms, many=True)
+        tenantsSerializer = self.get_serializer(tenants, many=True)
         
         return Response({
-            "tenants": serializer.data,
+            "buildings": buildingSerializer.data,
+            "rooms": roomSerializer.data,
+            "tenants": tenantsSerializer.data,
             "count": tenants.count(),
         }, status=status.HTTP_200_OK)
     
     def post(self, request, *args, **kwargs):
         print(request.data)  # Log the incoming request data
         data = request.data.copy()
-        instance = Room.objects.get(room_no = data['room'])
-        data["room"] = instance.id
-        print(data)
+        # instance = Room.objects.get(room_no = data['room'])
+        # data["room"] = instance.id
+        # print(data)
         serializer = self.get_serializer(data=data)
         
         if serializer.is_valid():
@@ -95,5 +99,30 @@ class AddTenant(generics.CreateAPIView):
         else:
             print(serializer.errors)  # Log validation errors
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-     
+    
+    def delete(self, request, *args, **kwargs):
+        id = request.query_params.get('id')
+        instance = Tenant.objects.get(id=id)
+        instance.delete()
+        print(f"User {instance.username} deleted")  
+        return Response({"message": "success"}, status=status.HTTP_200_OK)
+    
+    def patch(self, request, *args, **kwargs):
+        idd = request.data.get('tenantName')
+        instance=Tenant.objects.get(username=idd)
+        prevRoom = Room.objects.get(id = instance.room.id)
+        prevRoom.vacancy = True
+        prevRoom.save()
+        roomInstance = Room.objects.get(room_no = request.data.get('roomNumber'))
+        data={
+            "room":roomInstance.id,
+            "vacancy":False,
+            
+        }
+        serializer = self.get_serializer(instance, data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "success"}, status=status.HTTP_200_OK)
+        return Response({"message": "Failed"}, status=status.HTTP_400_BAD_REQUEST)
+    
         

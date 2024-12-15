@@ -1,9 +1,12 @@
-
+ #root {
+  height: 100dvh;
+ }
   .login-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
+    height: 90%;
   }
   
   .login-box {
@@ -14,6 +17,7 @@
     width: 100%;
     max-width: 400px;
     text-align: center;
+    margin: auto;
   }
   
   h2 {

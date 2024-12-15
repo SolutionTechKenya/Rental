@@ -12,7 +12,6 @@ import Tenants from "../Components/admin/Tenants";
 import Reports from "../Components/admin/Reports";
 import CalendarComponent from "../Components/admin/Calendar";
 import Notifications from '../Components/admin/Notifications';
-import LoginPage from './Login';
 
 const Admin = () => {
   const [activePage, setActivePage] = useState('dashboard');
@@ -52,14 +51,13 @@ const Admin = () => {
       label: 'Calendar',
       icon: <Calendar size={20} />,
       component: CalendarComponent
-    },
-    {
-      id: 'login',
-      label: 'Login',
-      icon: <LogIn size={20} />,
-      component: LoginPage
     }
   ]
+  
+  const [buildings, setBuildings] = useState([]);
+  
+  const [tenants, setTenants] = useState([]);
+  
   const navigate = useNavigate();
   const ActivePageComponent = menuItems.find(item => item.id === activePage)?.component || Dashboard;
   const handleLogOut = () => {
@@ -83,7 +81,7 @@ const Admin = () => {
               <span>{item.label}</span>
             </button>
           ))}
-          <button className="sidebar-item logout">
+          <button className="sidebar-item logout" onClick={handleLogOut}>
             <LogOut size={20} />
             <span onClick={handleLogOut}>Log out</span>
           </button>
