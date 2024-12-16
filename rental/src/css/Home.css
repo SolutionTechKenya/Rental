@@ -1,6 +1,7 @@
 html, body { 
     height: 100dvh;
     font-family: pt mono;
+    font-weight: 600;
 }
 
 body {

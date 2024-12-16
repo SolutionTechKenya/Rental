@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Routes, Route } from "react-router-dom";
-import { Home, CreditCard, Bell, Users, LogOut, LogIn, FileText, Calendar } from 'lucide-react';
+import { Home, CreditCard, BellRing, ClipboardMinus, Users, LogOut, LogIn, FileText, Calendar, ChartPie } from 'lucide-react';
 import "../css/TenantDashboard.css";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import { useNavigate } from "react-router-dom";
@@ -37,13 +37,13 @@ const Admin = () => {
     {
       id: 'reports',
       label: 'Reports',
-      icon: <FileText size={20} />,
+      icon: <ClipboardMinus size={20} />,
       component: Reports
     },
     {
       id: 'notifications',
       label: 'Notifications',
-      icon: <FileText size={20} />,
+      icon: <BellRing size={20} />,
       component: Notifications
     },
     {
@@ -69,7 +69,7 @@ const Admin = () => {
     <div className="tenant-dashboard">
       {/* Sidebar */}
       <div className="sidebar">
-        <div className="logo">ADMIN</div>
+        <div className="logo"><p>ADMIN</p></div>
         <nav>
           {menuItems.map((item) => (
             <button 

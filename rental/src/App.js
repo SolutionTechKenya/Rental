@@ -25,17 +25,13 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
               <Admin/>
-            </ProtectedRoute>
           }
         />
         <Route
           path="/tenant"
           element={
-            <ProtectedRoute>
               <TenantDashboard/>
-            </ProtectedRoute>
           }
         />
         <Route path="/" element={<Home />} />

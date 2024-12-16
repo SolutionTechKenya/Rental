@@ -3,7 +3,7 @@ import "../../css/admin/Dashboard.css";
 
 const FinancialManagement = () => {
   return (
-    <>
+    <div>
         <div className="dashboard-header">Financial Overview</div>
 
         <div className="dashboard-cards">
@@ -33,7 +33,7 @@ const FinancialManagement = () => {
           </ul>
         </div>
       
-    </>
+    </div>
   );
 };
 

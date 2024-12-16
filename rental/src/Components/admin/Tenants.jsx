@@ -112,7 +112,7 @@ const TenantsManagement = () => {
   
 
   return (
-    <>
+    <div>
         {/* Header */}
         <div className="dashboard-header">Manage Tenants</div>
 
@@ -282,7 +282,7 @@ const TenantsManagement = () => {
             </form>
           </div>
         )}
-    </>
+    </div>
   );
 };
 

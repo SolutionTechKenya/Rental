@@ -28,7 +28,9 @@
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 30px;
+  align-items: center;
+  padding: 0 auto;
+  justify-content: center;
   color: #ffffff;
 }
 
@@ -70,10 +72,12 @@
 /* Main Content */
 .main-content {
   flex-grow: 1;
-  padding: 20px;
+  padding: 0.4rem;
   background-color: white;
   overflow-y: auto;
   margin-left: 201px;
+  display: flex;
+  justify-content: center;
 }
 
 /* Dashboard Specific Styles */

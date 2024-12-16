@@ -3,7 +3,7 @@ import "../../css/admin/Reports.css";
 
 const Reports = () => {
   return (
-    <>
+    <div>
         <div className="dashboard-header">Reports Overview</div>
 
         <div className="reports-section">
@@ -33,7 +33,7 @@ const Reports = () => {
           <button className="action-button">View Events</button>
         </div>
       
-    </>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ const Calendar = () => {
   ]);
 
   return (
-    <>
+    <div>
         <div className="dashboard-header">Calendar Overview</div>
 
         <div className="calendar-container">
@@ -49,7 +49,7 @@ const Calendar = () => {
             </button>
           </form>
         </div>      
-    </>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import { IS_ADMIN } from "../../constants";
 
 const App = () => {
   return (
-    <>
+    <div>
       <div className="dashboard-header">Welcome back {IS_ADMIN ? "Administrator" : "User"}</div>
   
       <div className="dashboard-cards">
@@ -25,7 +25,7 @@ const App = () => {
           <a href="#">View Payments</a>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
