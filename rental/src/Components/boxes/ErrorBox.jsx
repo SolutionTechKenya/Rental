@@ -15,7 +15,7 @@ const ErrorBox = ({ message, type = 'error', onClose }) => {
     const style = boxStyles[type] || boxStyles.error;
 
     return (
-        <div style={{ ...style, padding: '10px', border: '1px solid', borderRadius: '5px', position: 'relative' }}>
+        <div className='error-box' style={{ ...style, padding: '.3rem', marginTop: '1.5rem', border: '1px solid', borderRadius: '5px', position: 'relative' }}>
             {onClose && (
                 <div
                     onClick={onClose}

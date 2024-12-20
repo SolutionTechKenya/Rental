@@ -10,7 +10,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div >
       <header id="header-wrapper">
         <div id="header" className="container">
           <div id="menu">
@@ -25,7 +25,7 @@ const App = () => {
                 <Link to='/admin'>Owner Services</Link>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <a href="/contact">Contact Us</a>
               </li>
               <li className="dropdown">
                 <Link to='/login'>Login</Link>
@@ -63,26 +63,28 @@ const App = () => {
               From tenant management to payment tracking, we’ve got you covered
             </span>
           </div>
-          <div className="boxA">
-            <p>
-              Effortlessly manage your rental properties and tenants in one platform.
-              Our system allows you to track payments, send reminders, and monitor lease agreements.
-            </p>
-            <a href="#" className="button button-alt">Learn More</a>
-          </div>
-          <div className="boxB">
-            <p>
-              For tenants, our system offers easy access to payment history, maintenance requests,
-              and lease details, all through a user-friendly portal.
-            </p>
-            <a href="#" className="button button-alt">Tenant Portal</a>
-          </div>
-          <div className="boxC">
-            <p>
-              Property owners can keep track of multiple properties, view financial summaries,
-              and access tenant communication in real-time with our robust system.
-            </p>
-            <a href="#" className="button button-alt">Owner Services</a>
+          <div className="boxes">
+            <div className="boxA">
+              <p>
+                Effortlessly manage your rental properties and tenants in one platform.
+                Our system allows you to track payments, send reminders, and monitor lease agreements.
+              </p>
+              <a href="#" className="button button-alt">Learn More</a>
+            </div>
+            <div className="boxB">
+              <p>
+                For tenants, our system offers easy access to payment history, maintenance requests,
+                and lease details, all through a user-friendly portal.
+              </p>
+              <a href="#" className="button button-alt">Tenant Portal</a>
+            </div>
+            <div className="boxC">
+              <p>
+                Property owners can keep track of multiple properties, view financial summaries,
+                and access tenant communication in real-time with our robust system.
+              </p>
+              <a href="#" className="button button-alt">Owner Services</a>
+            </div>
           </div>
         </div>
       </main>
@@ -94,7 +96,7 @@ const App = () => {
             <span className="byline">Our system helps you manage properties, tenants, and payments, all in one place</span>
           </div>
           <p>
-            This is <strong>Rental Management System</strong>, a comprehensive tool designed for property owners and tenants.
+            This is <strong>Rental Management System</strong>, a comprehensive tool designed for property owners and tenants. 
             Our platform provides seamless management of rental agreements, payment tracking, property maintenance requests, and more.
             Whether you're a landlord managing multiple properties or a tenant paying rent, our system ensures that everything runs smoothly.
           </p>

@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -27,10 +28,11 @@
   .nav nav {
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .nav button {
-    padding: 12px 15px;
+    padding: .3rem 1rem;
     margin-bottom: 10px;
     background-color: transparent;
     color: #000000;
@@ -46,8 +48,8 @@
   }
   
   .nav button.active {
-    background-color: #3498db;
-    color: white;
+    border-bottom: 2px solid #3498db;
+    border-radius: 0;
   }
 
   .h2{
@@ -114,7 +116,7 @@
   
   /* Payment Form */
   .payment-form {
-    max-width: 500px;
+    max-width: 400px;
     margin: 0 auto;
     background-color: white;
     padding: 30px;
@@ -134,7 +136,7 @@
   }
   
   .form-group input {
-    width: 100%;
+    width: 90%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;

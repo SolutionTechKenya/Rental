@@ -3,16 +3,11 @@ import "../../css/admin/Reports.css";
 
 const Reports = () => {
   return (
-    <div>
+    <div  style={{ width: "90%" }}>
         <div className="dashboard-header">Reports Overview</div>
 
         <div className="reports-section">
-          <h2>Summary Reports</h2>
-          <ul>
-            <li>Payments</li>
-            <li>Overdue Payments</li>
-            <li>Other Financial Reports</li>
-          </ul>
+          
         </div>
 
         <div className="reports-section">

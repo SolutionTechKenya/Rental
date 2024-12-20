@@ -15,7 +15,19 @@
     width: 100%;
     background-color: var(--background-light);
   }
-  
+  .add {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 2rem;
+  }
+  .add button{
+    margin: .2rem;
+    padding: 0;
+    border-radius: 5px;
+    border: 2px solid var(--primary-color);
+  }
   .notification-navigator {
     width: 3.5rem;
     background-color: var(--white);
@@ -60,10 +72,9 @@
   
   .notification-content h2 {
     color: var(--text-color);
-    margin-bottom: 20px;
+    margin-bottom: .5rem;
     font-weight: 600;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 10px;
+    font-size: .7rem 1vw 1rem;
   }
   
   .notification-card {
@@ -96,34 +107,7 @@
     color: var(--text-muted);
     font-size: 0.8rem;
   }
-  
-  /* Send Message Section */
-  form textarea {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 15px;
-    resize: vertical;
-    min-height: 150px;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .btn-submit {
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-  }
-  
-  .btn-submit:hover {
-    background-color: var(--secondary-color);
-    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
-  }
+
   
   /* Responsive Adjustments */
   @media (max-width: 768px) {
@@ -146,4 +130,68 @@
     .notification-content {
       padding: 15px;
     }
+
+  }
+.messages-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+  background-color: var(--background-light);
+}
+.messages-div:first-child {
+  margin: 20px;
+}
+  
+  .messages-div h2 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+  }
+
+
+  /* form styles */
+    /* Send Message Section */
+    form textarea {
+      width: auto;
+      padding: .5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0;
+      margin-bottom: 15px;
+      resize: vertical;
+      min-height: 200px;
+    }
+    
+    .btn-submit {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .btn-submit:hover {
+      background-color: var(--secondary-color);
+      box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+    }
+  form textarea,  input[type="text"] {
+    padding: .5rem;
+    width: auto;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+  }
+form select {
+  width: auto;
+  padding: .5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+  @media (max-width: 768px) {
+    .messages-div {
+      flex-direction: column;
+    }
+
   }

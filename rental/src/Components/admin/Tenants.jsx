@@ -109,10 +109,36 @@ const TenantsManagement = () => {
     }
   }
 
-  
+  const [roomForm, setRoomForm] = useState({
+    building: "",
+    room_no: "",
+    rent: "",
+    vacancy: 1,
+  });
+
+  const handleRoomFormChange = (e) => {
+    const { name, value } = e.target;
+    setRoomForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCreateRoom = async (e) => {
+    e.preventDefault();
+    const newRoom = {
+      ...roomForm,
+    };
+    try {
+      const res = await api.post('/api/create/room/', newRoom);
+      console.log('Response', res.message);
+      setRooms((prev) => [...prev, newRoom]);
+      setRoomForm({ building: "", room_no: "", rent: "", vacancy: 1 }); // Reset form
+      setView("viewAll"); // Go back to tenant list
+    } catch (error) {
+      console.log("Error creating room", error);
+    }
+  };
 
   return (
-    <div>
+    <div  style={{ width: "90%" }}>
         {/* Header */}
         <div className="dashboard-header">Manage Tenants</div>
 
@@ -123,6 +149,9 @@ const TenantsManagement = () => {
           </button>
           <button className="action-button" onClick={() => setView("viewAll")}>
             View All Tenants
+          </button>
+          <button className="action-button" onClick={() => setView("create")}>
+            Create Room
           </button>
           <button className="action-button" onClick={() => setView("assign")}>
             Room Assignments
@@ -247,6 +276,74 @@ const TenantsManagement = () => {
             </table>
           </div>
         )}
+        {view === "create" && (
+          <div>
+            <h2>Create Room</h2>
+            <form onSubmit={handleCreateRoom}>
+              <div>
+                <label>
+                  Building:
+                  <select
+                    name="building"
+                    value={roomForm.building}
+                    onChange={handleRoomFormChange}
+                    required
+                  >
+                    <option value="">Select a building</option>
+                    {buildings.map((building) => (
+                      <option key={building.id} value={building.id}>
+                        {building.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <div>
+                <label>
+                  Room Number:
+                  <input
+                    type="text"
+                    name="room_no"
+                    value={roomForm.room_no}
+                    onChange={handleRoomFormChange}
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Rent:
+                  <input
+                    type="number"
+                    name="rent"
+                    value={roomForm.rent}
+                    onChange={handleRoomFormChange}
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Vacancy:
+                  <select
+                    name="vacancy"
+                    value={roomForm.vacancy}
+                    onChange={handleRoomFormChange}
+                    required
+                  >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                </label>
+              </div>
+              <button type="submit" className="action-button">
+                Create Room
+              </button>
+            </form>
+          </div>
+        )}
+
+
 
         {view === "assign" && (
           <div>

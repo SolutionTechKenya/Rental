@@ -1,13 +1,19 @@
-import React, { useState } from "react"; 
-import { ChevronRight, ChevronLeft, Trash2 } from "lucide-react";
-import '../../css/admin/Calendar.css';
+import React, { useState } from 'react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+import "../css/Account.css";
 
-const Calendar = () => {
+function Account() {
+  const [activeSection, setActiveSection] = useState('calendar');
+
+  return (
+    
+      <><CalendarSection /></>
+  );
+}
+
+
+function CalendarSection() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
   const [events, setEvents] = useState([
     {
       id: 1,
@@ -17,42 +23,36 @@ const Calendar = () => {
     },
     {
       id: 2,
-      title: 'Monthly meeting',
-      date: '2024-02-15',
-      type: 'meeting'
-    },
-    {
-      id: 3,
-      title: 'Maintenance',
+      title: 'Maintenance Inspection',
       date: '2024-02-15',
       type: 'maintenance'
-    },
-    {
-      id: 3,
-      title: 'Maintenance',
-      date: '2024-02-15',
-      type: 'maintenance'
-    },
-    {
-      id: 3,
-      title: 'Maintenance',
-      date: '2024-02-15',
-      type: 'maintenance'
-    },
-    {
-      id: 3,
-      title: 'Maintenance',
-      date: '2024-02-15',
-      type: 'maintenance'
-    },
-    {
-      id: 3,
-      title: 'Maintenance',
-      date: '2024-02-15',
-      type: 'maintenance'
-    },
+    }
   ]);
 
+  const [tenantInfo, setTenantInfo] = useState({
+    name: 'John Doe',
+    apartmentNumber: '305',
+    moveInDate: '2023-06-15',
+    rentAmount: 1500,
+    rentDueDate: '1st of each month',
+    leaseEndDate: '2024-06-15'
+  });
+
+  // Calculate tenant's stay duration
+  const calculateStayDuration = () => {
+    const moveIn = new Date(tenantInfo.moveInDate);
+    const today = new Date();
+    const diffTime = Math.abs(today - moveIn);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    const years = Math.floor(diffDays / 365);
+    const months = Math.floor((diffDays % 365) / 30);
+    const days = diffDays % 30;
+
+    return `${years} years, ${months} months, ${days} days`;
+  };
+
+  // Generate calendar days
   const generateCalendarDays = () => {
     const daysInMonth = new Date(
       currentDate.getFullYear(), 
@@ -86,62 +86,29 @@ const Calendar = () => {
     return calendarDays;
   };
 
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
   const calendarDays = generateCalendarDays();
 
   return (
-    <div>
-      <div className="dashboard-header">Calendar Overview</div>
-
-      <div className="events-section">
-        <div className="calendar-container" style={{ width: "90%" }}>
-          <h2>Upcoming Events</h2>
-          <ul className="event-list">
-            {events.map((event, index) => (
-              <li key={index} className="event-item">
-                <span className="event-date">{event.date}</span>
-                <span className="event-title">{event.title}</span>
-                <span className="event-type">{event.type}</span>
-                <span></span>
-                <span className="trash"><Trash2 /></span>
-              </li>
-            ))}
-          </ul>
+      <div className="rental-calendar">
+        <div className="tenant-info">
+          <h2>Tenant Information</h2>
+          <div className="tenant-details">
+            <p><strong>Name:</strong> {tenantInfo.name}</p>
+            <p><strong>Apartment:</strong> {tenantInfo.apartmentNumber}</p>
+            <p><strong>Move-in Date:</strong> {tenantInfo.moveInDate}</p>
+            <p><strong>Lease End Date:</strong> {tenantInfo.leaseEndDate}</p>
+            <p><strong>Stay Duration:</strong> {calculateStayDuration()}</p>
+            <p><strong>Monthly Rent:</strong> ${tenantInfo.rentAmount}</p>
+            <p><strong>Rent Due:</strong> {tenantInfo.rentDueDate}</p>
+          </div>
         </div>
 
-        <div className="add-event-section">
-          <h2>Add New Event</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const date = e.target.date.value;
-              const title = e.target.title.value;
-              const type = e.target.type.value; // Get the event type
-              setEvents([...events, { id: events.length + 1, date, title, type }]);
-              e.target.reset();
-            }}
-          >
-            <input type="date" name="date" required className="input-field" />
-            <input
-              type="text"
-              name="title"
-              placeholder="Event Title"
-              required
-              className="input-field"
-            />
-            <select name="type" required className="input-field">
-              <option value="">Select Event Type</option>
-              <option value="payment">Payment</option>
-              <option value="meeting">Meeting</option>
-              <option value="maintenance">Maintenance</option>
-            </select>
-            <button type="submit" className="action-button">
-              Add Event
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div className="calendar-container">
+        <div className="calendar-container">
         <div className="calendar-header">
           <button 
             onClick={() => {
@@ -194,9 +161,21 @@ const Calendar = () => {
             );
           })}
         </div>
-      </div>      
-    </div>
+      </div>
+  
+        <div className="events-list">
+          <h2>Upcoming Events</h2>
+          {events.map(event => (
+            <div key={event.id} className={"event-item `${event.type}`"}>
+              <span className="event-date">{event.date}</span>
+              <span className="event-title">{event.title}</span>
+            </div>
+          ))}
+        </div>
+        
+      </div>
   );
-};
+}
 
-export default Calendar;
+export default Account;
+

@@ -51,4 +51,37 @@ class Payment(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Payment of {self.amount} by {self.tenant.name} for {self.room}"
+        return f"Payment of {self.amount}  for {self.room}"
+
+class Notification(models.Model):
+    TYPE_CHOICES = [
+        ('message', 'Message/Complaint'),
+        ('rent_due', 'Rent Due'),
+        ('report', 'Report'),
+    ]
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")  # Associate with User
+
+    def __str__(self):
+        return f"{self.type}: {self.title} ({self.timestamp})"
+
+
+class Message(models.Model):
+    RECIPIENT_CHOICES = [
+        ('all_tenants', 'All Tenants'),
+        ('specific_tenants', 'Specific Tenants'),
+        ('specific_building', 'Specific Building'),
+        ('admin', 'Admin'),
+    ]
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages")  # Sender
+    recipient_type = models.CharField(max_length=20, choices=RECIPIENT_CHOICES)
+    recipients = models.ManyToManyField(User, related_name="received_messages", blank=True)  # Specific recipients
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, null=True, blank=True)  # Specific building
+
+    def __str__(self):
+        return f"Message to {self.recipient_type} at {self.timestamp}"

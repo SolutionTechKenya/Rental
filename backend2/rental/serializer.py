@@ -1,4 +1,4 @@
-from .models import User, Tenant, Room, Building
+from .models import User, Tenant, Room, Building, Notification, Message
 from rest_framework import serializers
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -10,6 +10,17 @@ class UserSerializer(serializers.ModelSerializer):
         model=User
         fields=['password','username','is_Admin']
         extra_kwargs={'password':{'write_only':True}}
+        
+class BuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Building
+        fields='__all__'   
+        
+        
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Room
+        fields='__all__'           
         
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -39,31 +50,33 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
         # Add additional user information to the response
         user = self.user
-        # if not user.is_superuser:
-        #        raise serializers.ValidationError({
-        #         'status': 'error',
-        #         'message': 'Invalid credentials',
-        #     })
-        data.update({
-            'isAdmin':user.is_Admin,
-            'username':user.username
-        })
-        print(data)
+        if user.is_Admin:
+            #    raise serializers.ValidationError({
+            #     'status': 'error',
+            #     'message': 'Invalid credentials',
+            # })
+            buildingObj = Building.objects.filter(owner=user)
+            buildings = BuildingSerializer(buildingObj, many=True).data
+            # house=[{'rooms': {}}]
+            # for c in buildings:
+            #     print(c['id'])
+            #     roomsObj = Room.objects.filter(building=c['id'])
+            #     house['rooms'] = RoomSerializer(roomsObj, many=True).data
+            
+            # print(house['rooms'])
+            
+            data.update({
+                'isAdmin':user.is_Admin,
+                'username':user.username,
+                'buildings':buildings,
+            })
+            print(data)
         
         return data
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer  
-    
-class BuildingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Building
-        fields='__all__'
-        
-class RoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Room
-        fields='__all__'    
+
 class TenantSerializer(serializers.ModelSerializer):
     room_name = serializers.SerializerMethodField(method_name="get_name")
 
@@ -87,3 +100,19 @@ class TenantSerializer(serializers.ModelSerializer):
     #     if not Room.objects.filter(pk=value.id if isinstance(value, Room) else value).exists():
     #         raise serializers.ValidationError(f"Room with id '{value}' does not exist.")
     #     return value
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  # Include user details in the response
+
+    class Meta:
+        model = Notification
+        fields = "__all__"
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  # Include user details in the response
+
+    class Meta:
+        model = Message
+        fields = "__all__"    

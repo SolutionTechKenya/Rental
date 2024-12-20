@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Home, CreditCard, Bell, User, LogOut } from 'lucide-react';
-
+import { Home, CreditCard, Bell, User, LogOut, Link } from 'lucide-react';
+import Logout from "../Components/boxes/LogoutButton";
 // Import components from separate files
 import Dashboard from '../Components/Dashboard';
 import Payments from '../Components/Payments';
-import Notifications from '../Components/Notifications';
-import Calendar from '../Components/Calendar';
+import Notifications from '../Components/admin/Notifications';
+import Account from '../Components/Account';
+import Us from '../Components/boxes/Us';
 
 import '../css/TenantDashboard.css';
 
@@ -37,8 +38,12 @@ const TenantDashboard = () => {
       id: 'account', 
       label: 'Account', 
       icon: <User size={20} />,
-      component: Calendar 
-    }
+      component: Account 
+    },
+    {
+      id: 'us',
+      component: Us
+    },
   ];
 
   // Render the active page component
@@ -48,27 +53,38 @@ const TenantDashboard = () => {
     <div className="tenant-dashboard">
       {/* Sidebar */}
       <div className="sidebar">
-        <div className="logo">NYUMBANI</div>
-          {menuItems.map((item) => (
+        <div>
+          <div className="logo">NYUMBANI</div>
+            {menuItems.slice(0, -1).map((item) => (
+              <button 
+                key={item.id}
+                className={`sidebar-item ${activePage === item.id ? 'active' : ''}`}
+                onClick={() => setActivePage(item.id)}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </button>
+            ))}
+        </div>
+          <div>
+              <Logout/>
             <button 
-              key={item.id}
-              className={`sidebar-item ${activePage === item.id ? 'active' : ''}`}
-              onClick={() => setActivePage(item.id)}
+              className={`sidebar-item ${activePage === 'us' ? 'active' : ''}`}
+              key="us"
+              onClick={() => {
+                setActivePage('us')
+                }}
             >
-              {item.icon}
-              <span>{item.label}</span>
+              <Link size={20} />
+              <span>Us</span>
             </button>
-          ))}
-          <button className="sidebar-item logout">
-            <LogOut size={20} />
-            <span>Log out</span>
-          </button>
+          </div>
       </div>
 
       {/* Main Content Area */}
-      <>
+      <div className="main-content">
         <ActivePageComponent />
-      </>
+      </div>
     </div>
   );
 };

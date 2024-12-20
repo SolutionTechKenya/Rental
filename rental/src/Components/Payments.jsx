@@ -148,7 +148,7 @@ function PaymentSystem() {
             <div className="progress-bar">
               <div 
                 className="progress" 
-                style={{ width: '${(paymentStep + 1) * 33.33}%' }}
+                style={{ width: `'${(paymentStep + 1) * 33.33}%'` }}
               />
             </div>
 

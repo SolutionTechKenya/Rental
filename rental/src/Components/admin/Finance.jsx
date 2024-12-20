@@ -3,7 +3,7 @@ import "../../css/admin/Dashboard.css";
 
 const FinancialManagement = () => {
   return (
-    <div>
+    <div  style={{ width: "90%" }}>
         <div className="dashboard-header">Financial Overview</div>
 
         <div className="dashboard-cards">
@@ -25,12 +25,7 @@ const FinancialManagement = () => {
         </div>
 
         <div className="summary-section">
-          <h2>Summary Reports</h2>
-          <ul>
-            <li>Payments</li>
-            <li>Overdue</li>
-            <li>Other Financial Reports</li>
-          </ul>
+          
         </div>
       
     </div>

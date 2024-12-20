@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, Routes, Route } from "react-router-dom";
-import { Home, CreditCard, BellRing, ClipboardMinus, Users, LogOut, LogIn, FileText, Calendar, ChartPie } from 'lucide-react';
+import { Home, CreditCard, BellRing, ClipboardMinus, Users, Link, Calendar } from 'lucide-react';
 import "../css/TenantDashboard.css";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import { useNavigate } from "react-router-dom";
+import Logout from "../Components/boxes/LogoutButton";
 
 // Importing individual pages
 import Dashboard from "../Components/admin/Dashboard";
@@ -12,9 +11,13 @@ import Tenants from "../Components/admin/Tenants";
 import Reports from "../Components/admin/Reports";
 import CalendarComponent from "../Components/admin/Calendar";
 import Notifications from '../Components/admin/Notifications';
+import Us from '../Components/boxes/Us';
+
+import { useAuth } from "../Components/admin/AuthProvider";
 
 const Admin = () => {
-  const [activePage, setActivePage] = useState('dashboard');
+  const {activePage, setActivePage} = useAuth();
+  setActivePage(activePage);
   const menuItems = [
     {
       id: 'dashboard',
@@ -51,27 +54,22 @@ const Admin = () => {
       label: 'Calendar',
       icon: <Calendar size={20} />,
       component: CalendarComponent
-    }
+    },
+    {
+      id: 'us',
+      component: Us
+    },
   ]
+
   
-  const [buildings, setBuildings] = useState([]);
-  
-  const [tenants, setTenants] = useState([]);
-  
-  const navigate = useNavigate();
-  const ActivePageComponent = menuItems.find(item => item.id === activePage)?.component || Dashboard;
-  const handleLogOut = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(REFRESH_TOKEN);
-    navigate('/login');
-  }
+  let ActivePageComponent = menuItems.find(item => item.id === activePage)?.component || Dashboard;
   return (
     <div className="tenant-dashboard">
       {/* Sidebar */}
       <div className="sidebar">
+        <div className="sidebar-section">
         <div className="logo"><p>ADMIN</p></div>
-        <nav>
-          {menuItems.map((item) => (
+          {menuItems.slice(0, -1).map((item) => (
             <button 
               key={item.id}
               className={`sidebar-item ${activePage === item.id ? 'active' : ''}`}
@@ -81,11 +79,20 @@ const Admin = () => {
               <span>{item.label}</span>
             </button>
           ))}
-          <button className="sidebar-item logout" onClick={handleLogOut}>
-            <LogOut size={20} />
-            <span onClick={handleLogOut}>Log out</span>
-          </button>
-        </nav>
+          </div>
+          <div>
+          <Logout />
+          <button 
+            className={`sidebar-item ${activePage === 'us' ? 'active' : ''}`}
+            key="us"
+            onClick={() => {
+              setActivePage('us')
+              }}
+          >
+              <Link size={20} />
+              <span>Us</span>
+            </button>
+          </div>
       </div>
 
       {/* Main Content Area */}

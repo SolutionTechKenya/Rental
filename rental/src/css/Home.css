@@ -1,7 +1,7 @@
 html, body { 
     height: 100dvh;
     font-family: pt mono;
-    font-weight: 600;
+    font-weight: normal;
 }
 
 body {
@@ -18,6 +18,7 @@ h1, h2, h3 {
 
 p, ol, ul {
     margin-top: 0;
+    font-weight: 600;
 }
 
 ol, ul {
@@ -27,6 +28,7 @@ ol, ul {
 
 p {
     line-height: 180%;
+    padding: 0;
 }
 
 strong {
@@ -41,9 +43,9 @@ a:hover {
 }
 
 .container {
-    overflow: hidden;
     margin: 0em auto;
-    width: 1200px;
+    padding: .3rem 0;
+    width: 100%;
     color: #FFF;
 }
 
@@ -109,6 +111,8 @@ ul.actions li {
     padding: 1em 2em;
     border-color: rgba(0,0,0,.8);
     color: #FFF;
+    width: 180px;
+    margin: 0 auto;
 }
 
 /* Box Styles for 3-column layout */
@@ -116,21 +120,16 @@ ul.actions li {
 .boxB,
 .boxC {
     width: 384px;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.boxA,
-.boxB {
-    float: left;
-    margin-right: 20px;
-}
-
-.boxC {
-    float: right;
-}
 
 /* Heading Titles */
 .title {
-    margin-bottom: 3em;
+    margin: 1rem 0;
 }
 
 .title h2 {
@@ -140,13 +139,14 @@ ul.actions li {
 
 .title .byline {
     font-size: 1.3em;
+    font-weight: normal;
+    padding: .3rem;
     color: rgb(208, 221, 233);
 }
 
 /* Header */
 #wrapper {
-    position: relative;
-    padding: 5em 0em 7em 0em;
+    height: auto;
     background: #FFF;
 }
 
@@ -219,9 +219,12 @@ ul.actions li {
 }
 
 #menu .active a {
-    background: #2651a8;
-    border-radius: 6px;
+    background: transparent;
+    border-radius: 0;
     color: rgba(255,255,255,1);
+}
+#menu li:hover{
+    border-bottom: 2px solid #2651a8;
 }
 
 /* Banner */
@@ -253,15 +256,15 @@ ul.actions li {
 /* Welcome */
 #welcome {
     position: relative;
-    padding: 7em 0em 7em 0em;
+    padding: 0;
     background: #2651a8;
     background-size: cover;
     text-align: center;
 }
 
 #welcome .container {
-    width: 1000px;
-    padding: 0px 100px;
+    width: 100%;
+    padding: .3rem 0 ;
     color: rgba(255,255,255,0.8);
 }
 
@@ -276,10 +279,16 @@ ul.actions li {
 
 /* Extra */
 #three-column {
+    
     text-align: center;
     color: rgba(0,0,0,0.6);
 }
 
+.boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 #three-column .fa {
     display: block;
     padding: 1em 0em;
@@ -297,10 +306,10 @@ ul.actions li {
     color: rgba(0,0,0,0.6);
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries for Responsiveness
 @media screen and (max-width: 1200px) {
     .container {
-        width: 100%;
+        width: 100dvw;
         padding: 0 20px;
     }
 
@@ -343,8 +352,8 @@ ul.actions li {
         font-size: 2em;
     }
 }
-
-@media screen and (max-width: 768px) {
+ */
+@media (max-width: 768px) or (max-width: 480px) {
     #menu ul {
         display: block;
     }
@@ -355,8 +364,13 @@ ul.actions li {
     }
 
     .boxA, .boxB, .boxC {
-        width: 100%;
+        width: 90%;
         margin: 0;
+    }
+    .boxes {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 
     #banner .title h2 {
@@ -383,11 +397,11 @@ ul.actions li {
 
     #welcome .container {
         width: 100%;
-        padding: 0 20px;
+        padding: .3rem 0 ;
     }
 }
 
-@media screen and (max-width: 480px) {
+/* @media screen and (max-width: 480px) {
     #menu li a, #menu li span {
         font-size: 0.7em;
         padding: 0.8em;
@@ -413,4 +427,13 @@ ul.actions li {
     #three-column .title h2 {
         font-size: 2em;
     }
+} */
+
+
+.loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
 }
