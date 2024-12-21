@@ -226,4 +226,7 @@ class NotificationsAndMessages(generics.CreateAPIView):
     
     
     def post(self, request, *args, **kwargs):
+        
         print("Notifications", request.user)
+        
+        
