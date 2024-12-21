@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/SolutionTechKenya/Rental/rental/static/css/main.477067e1.css",
-    "main.js": "/SolutionTechKenya/Rental/rental/static/js/main.9e746a0c.js",
-    "static/js/453.0fff2ecc.chunk.js": "/SolutionTechKenya/Rental/rental/static/js/453.0fff2ecc.chunk.js",
-    "static/media/header-bg.jpg": "/SolutionTechKenya/Rental/rental/static/media/header-bg.6126fe1f0dd8432036e3.jpg",
-    "static/media/Logo.jpg": "/SolutionTechKenya/Rental/rental/static/media/Logo.5eadf18d8ddb716e9b59.jpg",
-    "index.html": "/SolutionTechKenya/Rental/rental/index.html",
-    "main.477067e1.css.map": "/SolutionTechKenya/Rental/rental/static/css/main.477067e1.css.map",
-    "main.9e746a0c.js.map": "/SolutionTechKenya/Rental/rental/static/js/main.9e746a0c.js.map",
-    "453.0fff2ecc.chunk.js.map": "/SolutionTechKenya/Rental/rental/static/js/453.0fff2ecc.chunk.js.map"
+    "main.css": "/SolutionTechKenya/Rental/static/css/main.f13953cf.css",
+    "main.js": "/SolutionTechKenya/Rental/static/js/main.533960ba.js",
+    "static/js/453.0fff2ecc.chunk.js": "/SolutionTechKenya/Rental/static/js/453.0fff2ecc.chunk.js",
+    "static/media/header-bg.jpg": "/SolutionTechKenya/Rental/static/media/header-bg.6126fe1f0dd8432036e3.jpg",
+    "static/media/Logo.jpg": "/SolutionTechKenya/Rental/static/media/Logo.5eadf18d8ddb716e9b59.jpg",
+    "index.html": "/SolutionTechKenya/Rental/index.html",
+    "main.f13953cf.css.map": "/SolutionTechKenya/Rental/static/css/main.f13953cf.css.map",
+    "main.533960ba.js.map": "/SolutionTechKenya/Rental/static/js/main.533960ba.js.map",
+    "453.0fff2ecc.chunk.js.map": "/SolutionTechKenya/Rental/static/js/453.0fff2ecc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.477067e1.css",
-    "static/js/main.9e746a0c.js"
+    "static/css/main.f13953cf.css",
+    "static/js/main.533960ba.js"
   ]
 }
