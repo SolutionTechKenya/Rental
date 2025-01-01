@@ -79,10 +79,12 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class TenantSerializer(serializers.ModelSerializer):
     room_name = serializers.SerializerMethodField(method_name="get_name")
+    
 
     class Meta:
         model = Tenant
         fields = ['password', 'username', 'is_tenant', 'phone','id', 'room', 'room_name']
+        extra_kwargs = {'password': {'write_only': True}}
         # fields = '__all__'
 
     def get_name(self, obj):

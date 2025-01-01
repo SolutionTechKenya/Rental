@@ -139,7 +139,7 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <button type="submit">{loading ? <LoadingIndicator /> : is_admin ? "Next" : "Login"}</button>
+          <button type="submit" style={{background: loading ? 'transparent' : '#007bff'}}>{loading ? <LoadingIndicator /> : is_admin ? "Next" : "Login"}</button>
         </form>
 
         <div className="additional-links">

@@ -14,7 +14,8 @@
   flex-direction: column;
   justify-content: space-between;
   width: 200px;
-  background-color: #1E097B;
+  /* background-color: #1E097B; */
+  background-color: #000000;
   color: white;
   border-right: 1px solid #e0e0e0;
   padding: .3rem;
@@ -196,6 +197,17 @@
     width: calc(100% - 3.5rem);
   }
 
+}
+
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  border-radius: .2rem;
+  border: 1px solid red;
 }
 
 

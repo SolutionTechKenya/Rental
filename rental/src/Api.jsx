@@ -2,8 +2,8 @@ import axios from 'axios';
 import { ACCESS_TOKEN } from './constants';
 
 const api = axios.create({
-    baseURL : 'https://hillarymutai.pythonanywhere.com/',
-    // baseURL : 'http://192.168.2.177:8000',
+    // baseURL : 'https://hillarymutai.pythonanywhere.com/',
+    baseURL : 'http://192.168.100.6:8000',
 });
 
 api.interceptors.request.use(

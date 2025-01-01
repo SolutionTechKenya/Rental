@@ -69,7 +69,7 @@ class AddTenant(generics.CreateAPIView):
         # Collect all rooms across buildings
         rooms = Room.objects.filter(building__in=buildings)
         for room in rooms:
-            print('Room ID:', room.id)
+            print('Room ID:', room.room_no)
         
         # Collect all tenants in those rooms
         tenants = Tenant.objects.filter(room__in=rooms)
@@ -101,30 +101,32 @@ class AddTenant(generics.CreateAPIView):
         }, status=status.HTTP_200_OK)
 
         
-        def post(self, request, *args, **kwargs):
-            print(request.data)  # Log the incoming request data
-            data = request.data.copy()
-            instance = Room.objects.get(room_no = data['room'])
-            data["room"] = instance.id
-            print("Ten",request.data)
-            serializer = self.get_serializer(data=data)
-            
-            if serializer.is_valid():
-                serializer.save()
-                print("Added 1 tenant")
-                return Response({"message": "success"}, status=status.HTTP_201_CREATED)
-            else:
-                print(serializer.errors)  # Log validation errors
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        print(request.data)  # Log the incoming request data
+        data = request.data.copy()
+        print("room", request.data["room"])
+        instance = Room.objects.get(id=data['room'])
+        data["room"] = instance.id
+        data["vacancy"] = False  # Set room vacancy to false
+        print("Ten", request.data)
+        serializer = self.get_serializer(data=data)
         
-        def delete(self, request, *args, **kwargs):
+        if serializer.is_valid():
+            serializer.save()
+            print("Added 1 tenant")
+            return Response({"message": "success"}, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)  # Log validation errors
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, *args, **kwargs):
             id = request.query_params.get('id')
             instance = Tenant.objects.get(id=id)
             instance.delete()
             print(f"User {instance.username} deleted")  
             return Response({"message": "success"}, status=status.HTTP_200_OK)
-        
-        def patch(self, request, *args, **kwargs):
+    
+    def patch(self, request, *args, **kwargs):
             idd = request.data.get('tenantName')
             instance=Tenant.objects.get(username=idd)
             prevRoom = Room.objects.get(id = instance.room.id)

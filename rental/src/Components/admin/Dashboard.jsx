@@ -6,7 +6,7 @@ import OccupancyCharts from "../boxes/PieChart";
 import Greeting from "../boxes/Greeting";
 
 const App = () => {
-  const { user, setUser, buildings, setActivePage, currentBuilding, setCurrentBuilding } = useAuth();
+  const { user, setUser,setRooms, setTenants, tenants, buildings, setActivePage, currentBuilding, setCurrentBuilding } = useAuth();
 
   useEffect(() => {
     const fetchTenants = async () => {
@@ -15,6 +15,8 @@ const App = () => {
         const data = res.data;
         console.log("Tenant data:", data);
         setUser((prev) => ({ ...prev, userdata: data }));
+        setRooms((prev) => ({ ...prev, rooms: data.rooms }));
+        setTenants((prev) => ({ ...prev, tenants: data.tenants }));
       } catch (error) {
         console.error("Error fetching tenant data:", error);
       }
@@ -71,7 +73,7 @@ const App = () => {
         )}
 
         <div className="charts-section">
-          <div className="dashboard-header">Building Overview: { currentBuilding }</div>
+          <div className="dashboard-header">Overview: { currentBuilding }</div>
           <OccupancyCharts />
         </div>
       </div>

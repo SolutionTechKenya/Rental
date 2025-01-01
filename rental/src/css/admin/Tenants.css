@@ -76,13 +76,13 @@ form div {
 
 form label {
   display: block;
-  margin-bottom: 5px;
+  margin: .3rem .2rem;
   font-size: 14px;
   color: #333;
 }
 
 form input, option, select {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -98,7 +98,7 @@ form input:focus {
 
 form button {
   display: block;
-  width: 100%;
+  width: 50%;
   background-color: #3a3b85;
   color: white;
   padding: 10px 15px;

@@ -163,82 +163,74 @@ const TenantsManagement = () => {
           <div>
             <h2>Add New Tenant</h2>
             <form onSubmit={handleAddTenant}>
-                  <div>
-                    <label>
-                      Username:
-                      <input
-                        type="text"
-                        name="username"
-                        value={tenantForm.username}
-                        onChange={handleTenantFormChange}
-                        required
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      Password:
-                      <input
-                        type="password"
-                        name="password"
-                        value={tenantForm.password}
-                        onChange={handleTenantFormChange}
-                        required
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      Building:
-                      <select
-                        name="building"
-                        value={tenantForm.building}
-                        onChange={handleTenantFormChange}
-                        required
-                      >
-                        <option value="">Select a building</option>
-                        {buildings.map((building) => (
-                          <option key={building.id} value={building.id}>
-                            {building.name}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      Room:
-                      <select
-                        name="room"
-                        value={tenantForm.room}
-                        onChange={handleTenantFormChange}
-                        required
-                        // disabled={!tenantForm.building} // Disable until a building is selected
-                      >
-                        <option value="">Select a room</option>
-                        {filteredRooms.map((room) => (
-                          <option key={room.id} value={room.id}>
-                            {room.room_no}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      Contact:
-                      <input
-                        type="text"
-                        name="phone"
-                        value={tenantForm.phone}
-                        onChange={handleTenantFormChange}
-                        required
-                      />
-                    </label>
-                  </div>
-                  <button type="submit" className="action-button">
-                    Add Tenant
-                  </button>
+                 <div  className="input-box">
+                    <div>
+                      <label>Username:</label>
+                        <input
+                          type="text"
+                          name="username"
+                          value={tenantForm.username}
+                          onChange={handleTenantFormChange}
+                          required
+                        />
+                    </div>
+                    <div>
+                      <label>Password:</label>
+                        <input
+                          type="password"
+                          name="password"
+                          value={tenantForm.password}
+                          onChange={handleTenantFormChange}
+                          required
+                        />
+                    </div>
+                    <div>
+                      <label>Building:</label>
+                        <select
+                          name="building"
+                          value={tenantForm.building}
+                          onChange={handleTenantFormChange}
+                          required
+                        >
+                          <option value="">Select a building</option>
+                          {buildings.map((building) => (
+                            <option key={building.id} value={building.id}>
+                              {building.name}
+                            </option>
+                          ))}
+                        </select>
+                    </div>
+                    <div>
+                      <label>Room:</label>
+                        <select
+                          name="room"
+                          value={tenantForm.room}
+                          onChange={handleTenantFormChange}
+                          required
+                          // disabled={!tenantForm.building} // Disable until a building is selected
+                        >
+                          <option value="">Select a room</option>
+                          {filteredRooms.map((room) => (
+                            <option key={room.id} value={room.id}>
+                              {room.room_no}
+                            </option>
+                          ))}
+                        </select>
+                    </div>
+                    <div>
+                      <label>Contact:</label>
+                        <input
+                          type="text"
+                          name="phone"
+                          value={tenantForm.phone}
+                          onChange={handleTenantFormChange}
+                          required
+                        />
+                    </div>
+                    <button type="submit" className="action-button">
+                      Add Tenant
+                    </button>
+                 </div>
                 </form>
           </div>
         )}
@@ -278,67 +270,61 @@ const TenantsManagement = () => {
         )}
         {view === "create" && (
           <div>
-            <h2>Create Room</h2>
+            <h2>This wizard will help you create add rooms to the database:</h2>
             <form onSubmit={handleCreateRoom}>
-              <div>
-                <label>
-                  Building:
-                  <select
-                    name="building"
-                    value={roomForm.building}
-                    onChange={handleRoomFormChange}
-                    required
-                  >
-                    <option value="">Select a building</option>
-                    {buildings.map((building) => (
-                      <option key={building.id} value={building.id}>
-                        {building.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+              <div  className="input-box">
+                <div>
+                  <label>Select the Building:</label>
+                    <select
+                      name="building"
+                      value={roomForm.building}
+                      onChange={handleRoomFormChange}
+                      required
+                    >
+                      <option value="">Select a building</option>
+                      {buildings.map((building) => (
+                        <option key={building.id} value={building.id}>
+                          {building.name}
+                        </option>
+                      ))}
+                    </select>
+                </div>
+                <div>
+                  <label>Room Number:</label>
+                    <input
+                      type="text"
+                      name="room_no"
+                      value={roomForm.room_no}
+                      onChange={handleRoomFormChange}
+                      required
+                    />
+                </div>
+                <div>
+                  <label>Rent:</label>
+                    <input
+                      type="number"
+                      name="rent"
+                      value={roomForm.rent}
+                      onChange={handleRoomFormChange}
+                      required
+                    />
+                </div>
+                <div>
+                  <label>Vacancy:</label>
+                    <select
+                      name="vacancy"
+                      value={roomForm.vacancy}
+                      onChange={handleRoomFormChange}
+                      required
+                    >
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                </div>
+                <button type="submit" className="action-button">
+                  Create Room
+                </button>
               </div>
-              <div>
-                <label>
-                  Room Number:
-                  <input
-                    type="text"
-                    name="room_no"
-                    value={roomForm.room_no}
-                    onChange={handleRoomFormChange}
-                    required
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Rent:
-                  <input
-                    type="number"
-                    name="rent"
-                    value={roomForm.rent}
-                    onChange={handleRoomFormChange}
-                    required
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Vacancy:
-                  <select
-                    name="vacancy"
-                    value={roomForm.vacancy}
-                    onChange={handleRoomFormChange}
-                    required
-                  >
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
-                  </select>
-                </label>
-              </div>
-              <button type="submit" className="action-button">
-                Create Room
-              </button>
             </form>
           </div>
         )}
@@ -349,33 +335,31 @@ const TenantsManagement = () => {
           <div>
             <h2>Assign Room</h2>
             <form onSubmit={handleAssignRoom}>
-              <div>
-                <label>
-                  Tenant Name:
-                  <input
-                    type="text"
-                    name="tenantName"
-                    value={assignmentForm.tenantName}
-                    onChange={handleAssignmentFormChange}
-                    required
-                  />
-                </label>
+              <div  className="input-box">
+                <div>
+                  <label>Tenant Name:</label>
+                    <input
+                      type="text"
+                      name="tenantName"
+                      value={assignmentForm.tenantName}
+                      onChange={handleAssignmentFormChange}
+                      required
+                    />
+                </div>
+                <div>
+                  <label>Room Number:</label>
+                    <input
+                      type="text"
+                      name="roomNumber"
+                      value={assignmentForm.roomNumber}
+                      onChange={handleAssignmentFormChange}
+                      required
+                    />
+                </div>
+                <button type="submit" className="action-button">
+                  Assign Room
+                </button>
               </div>
-              <div>
-                <label>
-                  Room Number:
-                  <input
-                    type="text"
-                    name="roomNumber"
-                    value={assignmentForm.roomNumber}
-                    onChange={handleAssignmentFormChange}
-                    required
-                  />
-                </label>
-              </div>
-              <button type="submit" className="action-button">
-                Assign Room
-              </button>
             </form>
           </div>
         )}

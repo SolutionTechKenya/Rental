@@ -3,27 +3,33 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recha
 import { useAuth } from '../admin/AuthProvider';
 
 const OccupancyCharts = () => {
-  const { currentBuilding ,buildings } = useAuth();
-  const building = buildings?.buildings?.find(b => b.name === currentBuilding);
-  // console.log("Tenants:", building);
+  const { currentBuilding ,buildings, rooms } = useAuth();
+  const building = buildings?.buildings?.find(b => b.name === currentBuilding) || 0;
+  const currentBuildingId = building.id;
+  console.log("building", building)
+  const allRooms = rooms?.rooms?.filter(room => room.building === currentBuildingId) || 0;
+  console.log("All Rooms", allRooms[0]);
+  
   // const [occupancyData, setOccupancyData] = useState(null);
-  const [occupancyData, setOccupancyData] = useState({
-    totalUnits: 100,
-    occupiedUnits: 75,
-    vacantUnits: 25,
-    tenantTypeDistribution: [
-      { name: 'Family', value: 40 },
-      { name: 'Single Professional', value: 30 },
-      { name: 'Student', value: 20 },
-      { name: 'Senior', value: 10 }
-    ],
-    leaseStatusDistribution: [
-      { name: 'Active Lease', value: 65 },
-      { name: 'Month-to-Month', value: 10 },
-      { name: 'Pending Renewal', value: 15 },
-      { name: 'Terminated', value: 10 }
-    ]
-  });
+  const [occupancyData, setOccupancyData] = useState();
+  useEffect(() => {
+    if (allRooms && building?.num_rooms) {
+      const occupiedUnits = allRooms.filter(room => !room.vacancy).length;
+      const updatedOccupancyData = {
+        totalUnits: building.num_rooms,
+        occupiedUnits: occupiedUnits,
+        vacantUnits: building.num_rooms - occupiedUnits,
+        leaseStatusDistribution: [
+          { name: 'Active Lease', value: 65 },
+          { name: 'Month-to-Month', value: 10 },
+          { name: 'Pending Renewal', value: 15 },
+          { name: 'Terminated', value: 10 }
+        ]
+      };
+      setOccupancyData(updatedOccupancyData);
+    }
+  }, [currentBuilding]);
+  
 
   useEffect(() => {
     const fetchOccupancyData = async () => {
@@ -99,30 +105,6 @@ const OccupancyCharts = () => {
                     { name: 'Occupied', value: occupancyData.occupiedUnits },
                     { name: 'Vacant', value: occupancyData.vacantUnits }
                   ].map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* Tenant Type Pie Chart */}
-          <div className="chart-card">
-            <h4>Tenant Type Distribution</h4>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={occupancyData.tenantTypeDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {occupancyData.tenantTypeDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
